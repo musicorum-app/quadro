@@ -1,0 +1,19 @@
+{
+  "name": "quadro-web-example",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "browserify main.js -o public/_bundle.js",
+    "build": "cd ../../ && npm run build && cd examples/web && npm run start",
+    "full-start": "npm run build && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@musicorum/quadro": "file:../../",
+    "browserify": "^17.0.0"
+  }
+}

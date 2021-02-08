@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quadro web example</title>
+</head>
+<body>
+
+<h1>
+    Quadro web
+</h1>
+
+<h3>Alignment</h3>
+
+<div class="select-input">
+    <label>X Align</label>
+    <select name="X Align" id="xAlign">
+        <option value="left">Left</option>
+        <option selected value="center">Center</option>
+        <option value="right">Right</option>
+    </select>
+</div>
+
+<div class="select-input">
+    <label>Y Align</label>
+    <select name="Y Align" id="yAlign">
+        <option value="top">Top</option>
+        <option selected value="center">Center</option>
+        <option value="bottom">Bottom</option>
+    </select>
+</div>
+
+<div class="select-input">
+    <label>Element</label>
+    <select name="Element" id="alignElement">
+        <option value="rect">Rectangle</option>
+        <option value="image">Image</option>
+        <option value="roundedImage">Rounded image</option>
+    </select>
+</div>
+
+<canvas id="align" width="300" height="300"></canvas>
+
+<hr />
+
+<h3>Text overflow</h3>
+
+<div class="select-input">
+    <label>Text</label>
+   <input id="textLinesText" value="This is an quadro example of text overflow types">
+</div>
+
+<canvas id="textLines" width="600" height="300"></canvas>
+
+<h3 style="margin-top: 100px">a</h3>
+</body>
+
+<script src="_bundle.js"></script>
+<script src="script.js"></script>
+
+<style>
+    body {
+        font-family: sans-serif;
+    }
+
+    #textLines {
+        border: 1px solid grey;
+    }
+
+    .move-cursor:hover {
+        cursor: ew-resize;
+    }
+
+    .select-input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 9px;
+    }
+</style>
+
+</html>
