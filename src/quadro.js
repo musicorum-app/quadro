@@ -24,7 +24,6 @@ export class Quadro {
     } else {
       this.ctx.fillText(text, x, y)
     }
-
   }
 
   fillRect (x, y, width, height) {
