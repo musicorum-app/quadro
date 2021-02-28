@@ -4,7 +4,7 @@ const gebi = id => document.getElementById(id)
 const getValueFromId = id => gebi(id).value
 
 const start = async () => {
-  const img = await Quadro.loadImageAsync('https://lastfm.freetls.fastly.net/i/u/300x300/d0f5103d593401b6787dff7541274961.png')
+  const img = await Quadro.loadImage('https://lastfm.freetls.fastly.net/i/u/300x300/d0f5103d593401b6787dff7541274961.png')
 
   window.resources = {
     img
@@ -16,6 +16,8 @@ const start = async () => {
 
   draw()
   setupTextLines()
+  drawChangePixelData()
+  drawImageFit()
 }
 
 const draw = () => {
@@ -71,6 +73,46 @@ const drawAlignCanvas = async (canvas) => {
   ctx.fill()
 }
 
+const drawImageFit = async () => {
+  const ctx = gebi('imageFit').getContext('2d')
+  const quadro = new Quadro(ctx)
+  const imgs = {
+    car: await Quadro.loadImage('https://images.unsplash.com/photo-1614373371549-c7d2e4885f17?fit=crop&w=1000&q=80'),
+    desert: await Quadro.loadImage('https://images.unsplash.com/photo-1547234935-80c7145ec969?fit=crop&w=1000&q=80')
+  }
+
+  const drawSquare = (x, y, w, h) => {
+    quadro.imageFit = getValueFromId('imageFitType')
+    const img = imgs[getValueFromId('imageFitImage')]
+
+    quadro.fillStyle = 'red'
+    quadro.fillRect(x, y, w + 2, h + 2)
+
+    quadro.fillStyle = 'rgb(255, 220, 220)'
+    quadro.fillRect(x, y, w, h)
+
+    quadro.drawImage(img, x, y, w, h)
+  }
+
+  const drawCanvas = () => {
+    quadro.xAlign = 'left'
+    quadro.yAlign = 'top'
+    quadro.fillStyle = 'white'
+    quadro.fillRect(0, 0, quadro.width, quadro.height)
+
+    quadro.xAlign = 'center'
+    quadro.yAlign = 'center'
+
+    drawSquare(200, 200, 358, 358)
+    drawSquare(590, 200, 363, 144)
+  }
+
+  gebi('imageFitType').addEventListener('change', drawCanvas)
+  gebi('imageFitImage').addEventListener('change', drawCanvas)
+
+  drawCanvas()
+}
+
 const setupTextLines = () => {
   const canvas = gebi('textLines')
   const ctx = canvas.getContext('2d')
@@ -104,8 +146,7 @@ const setupTextLines = () => {
 
   canvas.addEventListener('mousemove', ev => {
     const {
-      layerX,
-      layerY
+      layerX
     } = ev
 
     const limitX = canvas.width * limit
@@ -145,7 +186,25 @@ const setupTextLines = () => {
   })
 
   drawTextLines()
+}
 
+const drawChangePixelData = () => {
+  const ctx = gebi('changePixelData').getContext('2d')
+  const quadro = new Quadro(ctx)
+
+  quadro.fillStyle = 'red'
+  quadro.fillRect(10, 10, 30, 40)
+
+  quadro.changePixeldata(({
+    width,
+    height,
+    pos
+  }) => {
+    const xFactor = pos[0] / width
+    const yFactor = pos[1] / height
+
+    return [255 * xFactor, 255 * yFactor, 128, 255]
+  })
 }
 
 start()

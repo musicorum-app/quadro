@@ -1,5 +1,6 @@
 tsconfig.json
 .eslintrc.json
+.babelrc
 src
 examples
 .idea
