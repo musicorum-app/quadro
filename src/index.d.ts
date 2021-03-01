@@ -17,6 +17,7 @@ export default class Quadro extends CanvasRenderingContext2D {
   drawCircleImage(img: CanvasImageSource, x: Number, y: Number, size: Number, radius: Number)
   fillRect(x: Number, y: Number, height: Number, width: Number)
   changePixeldata(fn: PixelDataFunction, sx?: Number, sy?: Number, sw?: Number, sh?: Number)
+  blurArea (bx: Number, by: Number, bWidth: Number, bHeight: Number, blur: Number)
 
   static loadImage(src: string): HTMLImageElement
 }

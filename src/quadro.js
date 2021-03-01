@@ -1,8 +1,10 @@
 import canvas from 'canvas'
+import { blurCanvas, resolveAlign } from './utils'
 
 export class Quadro {
-  constructor (context) {
+  constructor (context, nodeCanvas = canvas) {
     this.ctx = context
+    this.nodeCanvas = nodeCanvas
     this.xAlign = 'left'
     this.yAlign = 'top'
     this.textOverflow = 'ellipsis'
@@ -31,7 +33,7 @@ export class Quadro {
     const {
       realX,
       realY
-    } = this.resolveAlign(x, y, width, height)
+    } = resolveAlign(x, y, width, height, this)
 
     this.ctx.fillRect(realX, realY, width, height)
   }
@@ -41,7 +43,7 @@ export class Quadro {
     const {
       realX,
       realY
-    } = this.resolveAlign(x, y, w, h)
+    } = resolveAlign(x, y, w, h, this)
 
     if (this.imageFit === 'fill') {
       return this.ctx.drawImage(img, realX, realY, w, h)
@@ -51,8 +53,6 @@ export class Quadro {
       width,
       height
     } = img
-    let sx = 0
-    let sy = 0
     let dx, dy
 
     if (this.imageFit === 'contain') {
@@ -102,7 +102,7 @@ export class Quadro {
     const {
       realX,
       realY
-    } = this.resolveAlign(x, y, size, size)
+    } = resolveAlign(x, y, size, size, this)
 
     this.ctx.drawImage(c, realX, realY, size, size)
   }
@@ -144,15 +144,28 @@ export class Quadro {
     this.ctx.putImageData(imData, sx, sy)
   }
 
-  createCanvas (w, h) {
-    const c = document.createElement('canvas')
-    c.width = w
-    c.height = h
-    return c
+  blurArea (bx, by, bWidth, bHeight, blur = 6) {
+    const {
+      realX,
+      realY
+    } = resolveAlign(bx, by, bWidth, bHeight, this)
+    const c = this.createCanvas(bWidth, bHeight)
+    const ctx = c.getContext('2d')
+
+    console.log(this.ctx.canvas)
+
+    ctx.drawImage(this.ctx.canvas, realX, realY, bWidth, bHeight, 0, 0, bWidth, bHeight)
+    blurCanvas(ctx, blur)
+
+    this.drawImage(c, bx, by, bWidth, bHeight)
   }
 
-  static async loadImage (src) {
-    return canvas.loadImage(src)
+  createCanvas (w, h) {
+    return this.nodeCanvas.createCanvas(w, h)
+  }
+
+  loadImage (src) {
+    return this.nodeCanvas.loadImage(src)
   }
 
   set fillStyle (style) {
@@ -185,30 +198,5 @@ export class Quadro {
 
   get height () {
     return this.ctx.canvas.height
-  }
-
-  resolveAlign (x, y, width, height) {
-    let realX = x
-    let realY = y
-    if (this.xAlign === 'left' || this.xAlign === 'start') {
-      realX = x
-    } else if (this.xAlign === 'center' || this.xAlign === 'middle') {
-      realX = x - (width * 0.5)
-    } else if (this.xAlign === 'right' || this.xAlign === 'edn') {
-      realX = x - width
-    }
-
-    if (this.yAlign === 'top' || this.yAlign === 'start') {
-      realY = y
-    } else if (this.yAlign === 'center' || this.yAlign === 'middle') {
-      realY = y - (height * 0.5)
-    } else if (this.yAlign === 'bottom' || this.yAlign === 'end') {
-      realY = y - height
-    }
-
-    return {
-      realX,
-      realY
-    }
   }
 }
