@@ -1,9 +1,10 @@
 import canvas from 'canvas'
 import { blurCanvas, resolveAlign } from './utils'
+import RenderingContextDefaults from './renderingContextDefaults'
 
-export class Quadro {
+export class Quadro extends RenderingContextDefaults {
   constructor (context, nodeCanvas = canvas) {
-    this.ctx = context
+    super(context)
     this.nodeCanvas = nodeCanvas
     this.xAlign = 'left'
     this.yAlign = 'top'
@@ -166,30 +167,6 @@ export class Quadro {
 
   loadImage (src) {
     return this.nodeCanvas.loadImage(src)
-  }
-
-  set fillStyle (style) {
-    this.ctx.fillStyle = style
-  }
-
-  get fillStyle () {
-    return this.ctx.fillStyle
-  }
-
-  set font (font) {
-    this.ctx.font = font
-  }
-
-  get font () {
-    return this.ctx.font
-  }
-
-  set textAlign (textAlign) {
-    this.ctx.textAlign = textAlign
-  }
-
-  get textAlign () {
-    return this.ctx.textAlign
   }
 
   get width () {

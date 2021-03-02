@@ -4,7 +4,7 @@ const gebi = id => document.getElementById(id)
 const getValueFromId = id => gebi(id).value
 
 const start = async () => {
-  const img = await Quadro.loadImage('https://lastfm.freetls.fastly.net/i/u/300x300/d0f5103d593401b6787dff7541274961.png')
+  const img = await new Quadro(gebi('align').getContext('2d')).loadImage('https://images.unsplash.com/photo-1614607660006-945b019c188a?auto=format&fit=crop&w=200&h=200')
 
   window.resources = {
     img
@@ -39,6 +39,8 @@ const drawAlignCanvas = async (canvas) => {
   console.log(quadro)
 
   quadro.fillStyle = 'blue'
+
+  console.log(quadro.fillRect)
 
   switch (getValueFromId('alignElement')) {
     case 'roundedImage':
@@ -77,8 +79,8 @@ const drawImageFit = async () => {
   const ctx = gebi('imageFit').getContext('2d')
   const quadro = new Quadro(ctx)
   const imgs = {
-    car: await Quadro.loadImage('https://images.unsplash.com/photo-1614373371549-c7d2e4885f17?fit=crop&w=1000&q=80'),
-    desert: await Quadro.loadImage('https://images.unsplash.com/photo-1547234935-80c7145ec969?fit=crop&w=1000&q=80')
+    car: await quadro.loadImage('https://images.unsplash.com/photo-1614373371549-c7d2e4885f17?fit=crop&w=1000&q=80'),
+    desert: await quadro.loadImage('https://images.unsplash.com/photo-1547234935-80c7145ec969?fit=crop&w=1000&q=80')
   }
 
   const drawSquare = (x, y, w, h) => {
