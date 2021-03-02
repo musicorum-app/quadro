@@ -1,15 +1,30 @@
 {
   "name": "@musicorum/quadro",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Helper library for both NodeJS and web canvas",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [
+    "canvas",
+    "node-canvas",
+    "helper",
+    "web canvas",
+    "utility"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./dist && mkdir dist",
     "build": "npm run clean && babel src -d dist && cp src/index.d.ts dist/index.d.ts"
   },
-  "author": "Matheus <methidezeeni@gmail.com>",
+  "author": "Matheus Dias <methidezeeni@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musicorum-app/quadro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/musicorum-app/quadro/issues"
+  },
+  "homepage": "https://github.com/musicorum-app/quadro#readme",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.11.6",
