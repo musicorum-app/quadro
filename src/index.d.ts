@@ -1,5 +1,12 @@
 import { Canvas, Image } from 'canvas'
 
+type NodeCanvasLibrary = {
+  loadImage(src: string | Buffer, options?: any): Promise<Image>
+  createCanvas(width: number, height: number, type?: 'pdf'|'svg'): Canvas
+}
+
+type QuadroImageSource = Canvas | Image | CanvasImageSource
+
 type PixelDataFunction = (fn: {
   width: number,
   height: number,
@@ -19,12 +26,12 @@ export class Quadro extends CanvasRenderingContext2D {
 
   constructor (ctx: CanvasRenderingContext2D, nodeCanvas?: Canvas)
 
-  drawCircleImage(img: CanvasImageSource, x: number, y: number, size: number, radius: number)
+  drawCircleImage(img: QuadroImageSource, x: number, y: number, size: number, radius: number)
   changePixeldata(fn: PixelDataFunction, sx?: number, sy?: number, sw?: number, sh?: number)
   blurArea (bx: number, by: number, bWidth: number, bHeight: number, blur: number)
   writeTextLine (text: string, x: number, y: number, maxWidth: number)
-  drawImage (img: CanvasImageSource, x: number, y: number, width?: number, height?: number): void
-  drawCircleImage (img: CanvasImageSource, x: number, y: number, size?: number, radius?: number)
+  drawImage (img: QuadroImageSource, x: number, y: number, width?: number, height?: number): void
+  drawCircleImage (img: QuadroImageSource, x: number, y: number, size?: number, radius?: number)
   createCanvas (width: number, height: number): Canvas
   loadImage (src: string): Promise<Image>
 
