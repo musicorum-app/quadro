@@ -1,4 +1,7 @@
 export default class RenderingContextDefaults {
+  /**
+   * @param ctx {SKRSContext2D}
+   */
   constructor (ctx) {
     this.ctx = ctx
 
@@ -14,7 +17,6 @@ export default class RenderingContextDefaults {
     this.createLinearGradient = this.ctx.createLinearGradient
     this.createPattern = this.ctx.createPattern
     this.createRadialGradient = this.ctx.createRadialGradient
-    this.drawFocusIfNeeded = this.ctx.drawFocusIfNeeded
     // this.drawImage = this.ctx.drawImage
     this.ellipse = this.ctx.ellipse
     this.fill = this.ctx.fill

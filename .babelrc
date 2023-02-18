@@ -6,7 +6,8 @@
         "debug": false,
         "targets": {
           "node": "current"
-        }
+        },
+        "modules": false
       }
     ]
   ]

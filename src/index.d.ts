@@ -1,6 +1,6 @@
-import { Canvas, Image } from 'canvas'
+import { Canvas, Image } from '@napi-rs/canvas'
 
-type NodeCanvasLibrary = {
+type BackendCanvasLibrary = {
   loadImage(src: string | Buffer, options?: any): Promise<Image>
   createCanvas(width: number, height: number, type?: 'pdf'|'svg'): Canvas
 }
@@ -27,11 +27,11 @@ export class Quadro extends CanvasRenderingContext2D {
   constructor (ctx: CanvasRenderingContext2D, nodeCanvas?: Canvas)
 
   drawCircleImage(img: QuadroImageSource, x: number, y: number, size: number, radius: number)
+  drawCircleImage (img: QuadroImageSource, x: number, y: number, size?: number, radius?: number)
   changePixeldata(fn: PixelDataFunction, sx?: number, sy?: number, sw?: number, sh?: number)
   blurArea (bx: number, by: number, bWidth: number, bHeight: number, blur: number)
   writeTextLine (text: string, x: number, y: number, maxWidth: number)
   drawImage (img: QuadroImageSource, x: number, y: number, width?: number, height?: number): void
-  drawCircleImage (img: QuadroImageSource, x: number, y: number, size?: number, radius?: number)
   createCanvas (width: number, height: number): Canvas
   loadImage (src: string): Promise<Image>
 

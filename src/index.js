@@ -1,1 +1,1 @@
-export { Quadro } from './quadro'
+export { Quadro } from './quadro.js'

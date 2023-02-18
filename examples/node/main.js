@@ -1,22 +1,18 @@
-const { Quadro } = require('@musicorum/quadro')
-const nodeCanvas = require('canvas')
-const fs = require('fs')
+import { Quadro } from '../../dist/index.js'
+import fs from 'fs'
+import skiaCanvas from '@napi-rs/canvas'
 
-const { createCanvas, loadImage } = nodeCanvas
-
-const out = fs.createWriteStream('./out.jpg')
-
-const canvas = createCanvas(400, 600)
+const canvas = skiaCanvas.createCanvas(400, 600)
 const ctx = canvas.getContext('2d')
 
 main()
   .then(() => {
-    const stream = canvas.createJPEGStream()
-    stream.pipe(out)
+    const image = canvas.toBuffer('image/png')
+    fs.writeFileSync('out.png', image)
   })
 
 async function main () {
-  const quadro = new Quadro(ctx, nodeCanvas)
+  const quadro = new Quadro(ctx, skiaCanvas)
   const img = await quadro.loadImage('https://images.unsplash.com/photo-1614107311389-78a20cbb6c9f?auto=format&fit=crop&w=1350&q=80')
 
   quadro.fillStyle = 'white'

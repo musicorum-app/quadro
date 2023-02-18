@@ -1,11 +1,10 @@
-import canvas from 'canvas'
-import { blurCanvas, resolveAlign } from './utils'
-import RenderingContextDefaults from './renderingContextDefaults'
+import { blurCanvas, resolveAlign } from './utils.js'
+import RenderingContextDefaults from './renderingContextDefaults.js'
 
 export class Quadro extends RenderingContextDefaults {
-  constructor (context, nodeCanvas = canvas) {
+  constructor (context, canvas) {
     super(context)
-    this.nodeCanvas = nodeCanvas
+    this.backendCanvas = canvas
     this.xAlign = 'left'
     this.yAlign = 'top'
     this.textOverflow = 'ellipsis'
@@ -162,11 +161,11 @@ export class Quadro extends RenderingContextDefaults {
   }
 
   createCanvas (w, h) {
-    return this.nodeCanvas.createCanvas(w, h)
+    return this.backendCanvas.createCanvas(w, h)
   }
 
   loadImage (src) {
-    return this.nodeCanvas.loadImage(src)
+    return this.backendCanvas.loadImage(src)
   }
 
   get width () {

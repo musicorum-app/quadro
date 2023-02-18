@@ -1,4 +1,5 @@
 export function isWeb () {
+  // eslint-disable-next-line no-undef
   return !!window
 }
 
