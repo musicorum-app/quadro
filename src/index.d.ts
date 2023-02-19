@@ -1,4 +1,4 @@
-import { Canvas, Image } from '@napi-rs/canvas'
+import { Canvas, Image, SKRSContext2D } from '@napi-rs/canvas'
 
 type BackendCanvasLibrary = {
   loadImage(src: string | Buffer, options?: any): Promise<Image>
@@ -24,7 +24,7 @@ export class Quadro extends CanvasRenderingContext2D {
   width: number
   height: number
 
-  constructor (ctx: CanvasRenderingContext2D, nodeCanvas?: Canvas)
+  constructor (ctx: SKRSContext2D, nodeCanvas?: Canvas)
 
   drawCircleImage(img: QuadroImageSource, x: number, y: number, size: number, radius: number)
   drawCircleImage (img: QuadroImageSource, x: number, y: number, size?: number, radius?: number)
