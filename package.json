@@ -1,6 +1,6 @@
 {
   "name": "@musicorum/quadro",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Helper library for both NodeJS and web canvas",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
